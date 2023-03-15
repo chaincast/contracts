@@ -24,7 +24,7 @@ contract Broadcasters is Ownable{
   uint16 constant MAX_BROADCASTERS_PER_ADDRESS = 3;
 
   // Main broadcasters state
-  mapping(uint256 => Broadcaster) broadcasters;
+  mapping(uint256 => Broadcaster) public broadcasters;
   // Keep track of how many broadcasters are owned by a specific address
   mapping(address => uint16) private _broadcastersPerAddress;
   // Keep track of used broadcaster names to ensure their uniqueness
@@ -58,8 +58,8 @@ contract Broadcasters is Ownable{
       "Maximum allowed created Broadcasters reached"
     );
     require(bytes(name).length > 0, "name cannot be empty");
-    require(!_broadcasterNames[name], "name has already been used - chose a different one");
-    require(!_broadcasterNames[name], "name has already been used - chose a different one");
+    require(!_broadcasterNames[name], "name has already been used - choose a different one");
+    require(!_broadcasterNames[name], "name has already been used - choose a different one");
 
 
     // Check if sender has created a broadcaster before and increment
@@ -79,8 +79,9 @@ contract Broadcasters is Ownable{
     broadcaster.website = website;
     broadcaster.discord = discord;
     broadcaster.owner = _msgSender();
-    broadcaster.isActive = false;
-    broadcaster.isApproved = false;
+    // FIXME: MVP activate and approve new broadcasters by default
+    broadcaster.isActive = true;
+    broadcaster.isApproved = true;
 
     // Dispatch Broadcaster created event
     emit BroadcasterCreated(
@@ -94,5 +95,16 @@ contract Broadcasters is Ownable{
     );
 
     return lastBroadcasterId;
+  }
+
+  /**
+   * Approves a broadcaster to operate, owner only can invoke this.
+   *
+   * @param broadcasterId The id of the broadcaster.
+   */
+  function approveBroadcaster(uint256 broadcasterId) public onlyOwner {
+    Broadcaster storage broadcaster = broadcasters[broadcasterId];
+    broadcaster.isActive = true;
+    broadcaster.isApproved = true;
   }
 }
