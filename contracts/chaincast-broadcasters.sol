@@ -103,7 +103,8 @@ contract Broadcasters is Ownable {
     }
 
     /**
-     * Approves a broadcaster to operate, owner only can invoke this.
+     * Approves a broadcaster to operate, only the contract owner
+     * can invoke this.
      *
      * @param broadcasterId The id of the broadcaster.
      */
