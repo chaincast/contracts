@@ -1,4 +1,4 @@
-//SPDX-License-Identifier: 0BSD
+//SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.9;
 
@@ -18,7 +18,7 @@ contract Broadcasters is Ownable {
     }
 
     // Broadcasters id increment
-    uint256 lastBroadcasterId = 0;
+    uint256 nextBroadcasterId = 1;
 
     // How many broadcaster records a single address can create
     uint16 constant MAX_BROADCASTERS_PER_ADDRESS = 3;
@@ -75,9 +75,9 @@ contract Broadcasters is Ownable {
         }
 
         // Prepare the Broadcaster record
-        lastBroadcasterId += 1;
-        Broadcaster storage broadcaster = broadcasters[lastBroadcasterId];
-        broadcaster.id = lastBroadcasterId;
+        nextBroadcasterId += 1;
+        Broadcaster storage broadcaster = broadcasters[nextBroadcasterId];
+        broadcaster.id = nextBroadcasterId;
         broadcaster.name = name;
         broadcaster.primaryChainId = primaryChainId;
         broadcaster.secondaryChainIds = secondaryChainIds;
@@ -99,7 +99,7 @@ contract Broadcasters is Ownable {
             broadcaster.owner
         );
 
-        return lastBroadcasterId;
+        return nextBroadcasterId;
     }
 
     /**
@@ -112,5 +112,17 @@ contract Broadcasters is Ownable {
         Broadcaster storage broadcaster = broadcasters[broadcasterId];
         broadcaster.isActive = true;
         broadcaster.isApproved = true;
+    }
+
+    /**
+     * Checks if a broadcaster id exists.
+     *
+     * @param broadcasterId The id of the broadcaster.
+     * @return bool If this broadcaster exists.
+     */
+    function broadcasterExists(
+        uint256 broadcasterId
+    ) public view returns (bool) {
+        return broadcasters[broadcasterId].id != 0;
     }
 }
