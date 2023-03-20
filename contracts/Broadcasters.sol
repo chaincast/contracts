@@ -45,7 +45,7 @@ contract Broadcasters is Ownable {
     /**
      * Create a broadcaster record.
      */
-    function createBroadcaster(
+    function broadcasterCreate(
         string memory name,
         uint256 primaryChainId,
         uint256[] memory secondaryChainIds,
@@ -108,7 +108,7 @@ contract Broadcasters is Ownable {
      *
      * @param broadcasterId The id of the broadcaster.
      */
-    function approveBroadcaster(uint256 broadcasterId) public onlyOwner {
+    function broadcasterApprove(uint256 broadcasterId) public onlyOwner {
         Broadcaster storage broadcaster = broadcasters[broadcasterId];
         broadcaster.isActive = true;
         broadcaster.isApproved = true;
