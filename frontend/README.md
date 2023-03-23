@@ -1,6 +1,6 @@
-# Sample React Dapp
+# Chaincast React Dapp
 
-This directory has a sample Dapp to interact with your contracts, built using
+This directory has the Chaincast Dapp, built using
 React.
 
 ## Running the Dapp
