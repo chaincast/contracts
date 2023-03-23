@@ -7,7 +7,7 @@ This repository contains all the smart contracts needed to run the Chaincast ser
 ### Start Local Network
 
 ```
-npm hardhat node
+npx hardhat node
 ```
 
 ### Deploy on Local
