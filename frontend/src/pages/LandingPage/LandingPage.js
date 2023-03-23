@@ -14,10 +14,10 @@ import contractAddress from '../../contracts/contract-address.json';
 import { NoWalletDetected } from '../../components/NoWalletDetected';
 import { ConnectWallet } from '../../components/ConnectWallet';
 // import { Loading } from '../../components/Loading';
-import { Transfer } from '../../components/Transfer';
+// import { Transfer } from '../../components/Transfer';
 import { TransactionErrorMessage } from '../../components/TransactionErrorMessage';
 import { WaitingForTransactionMessage } from '../../components/WaitingForTransactionMessage';
-import { NoTokensMessage } from '../../components/NoTokensMessage';
+// import { NoTokensMessage } from '../../components/NoTokensMessage';
 
 // This is the Hardhat Network id that we set in our hardhat.config.js.
 // Here's a list of network ids https://docs.metamask.io/guide/ethereum-provider.html#properties
