@@ -13,7 +13,7 @@ import contractAddress from '../../contracts/contract-address.json';
 // logic. They just render HTML.
 import { NoWalletDetected } from '../../components/NoWalletDetected';
 import { ConnectWallet } from '../../components/ConnectWallet';
-import { Loading } from '../../components/Loading';
+// import { Loading } from '../../components/Loading';
 import { Transfer } from '../../components/Transfer';
 import { TransactionErrorMessage } from '../../components/TransactionErrorMessage';
 import { WaitingForTransactionMessage } from '../../components/WaitingForTransactionMessage';
@@ -43,6 +43,14 @@ export class LandingPage extends React.Component {
     this.state = this.initialState;
   }
 
+  async componentDidMount() {
+    // Check if wallet already connected and connect without prompt
+    const ethStateAccount = window.ethereum._state.accounts;
+    if (ethStateAccount?.length) {
+      this._connectWallet();
+    }
+  }
+
   render() {
     // Ethereum wallets inject the window.ethereum object. If it hasn't been
     // injected, we instruct the user to install MetaMask.
@@ -65,12 +73,6 @@ export class LandingPage extends React.Component {
           dismiss={() => this._dismissNetworkError()}
         />
       );
-    }
-
-    // If the token data or the user's balance hasn't loaded yet, we show
-    // a loading component.
-    if (!this.state.tokenData || !this.state.balance) {
-      return <Loading />;
     }
 
     // If everything is loaded, we render the application.
@@ -114,29 +116,7 @@ export class LandingPage extends React.Component {
         </div>
 
         <div className="row">
-          <div className="col-12">
-            {/*
-              If the user has no tokens, we don't show the Transfer form
-            */}
-            {this.state.balance.eq(0) && (
-              <NoTokensMessage selectedAddress={this.state.selectedAddress} />
-            )}
-
-            {/*
-              This component displays a form that the user can use to send a
-              transaction and transfer some tokens.
-              The component doesn't have logic, it just calls the transferTokens
-              callback.
-            */}
-            {this.state.balance.gt(0) && (
-              <Transfer
-                transferTokens={(to, amount) =>
-                  this._transferTokens(to, amount)
-                }
-                tokenSymbol={this.state.tokenData.symbol}
-              />
-            )}
-          </div>
+          <div className="col-12">Another row</div>
         </div>
       </div>
     );
@@ -209,7 +189,6 @@ export class LandingPage extends React.Component {
       BroadcastsArtifact.abi,
       this._provider.getSigner(0),
     );
-    console.log('ethers initialized');
   }
 
   // This method just clears part of the state.
