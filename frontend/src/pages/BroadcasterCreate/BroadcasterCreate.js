@@ -1,6 +1,21 @@
+import chains from 'constants/chains.json';
+import chaincastChains from 'constants/chaincast-chains.json';
+
 import MainLayout from 'layouts/MainLayout';
 
 export default function BroadcasterCreatePage() {
+  // Prepare chain options
+  const chaincastChainIds = Object.keys(chaincastChains).map((key) =>
+    parseInt(key, 10),
+  );
+  const chainOptions = chains
+    .filter((chain) => chaincastChainIds.includes(chain.chainId))
+    .map((chain) => {
+      return {
+        value: chain.chainId,
+        text: chain.name,
+      };
+    });
   return (
     <MainLayout>
       <div className="container-sm">
@@ -37,9 +52,11 @@ export default function BroadcasterCreatePage() {
                   id="daoPrimaryNetwork"
                 >
                   <option>Choose a Primary Network</option>
-                  <option value="1">One</option>
-                  <option value="2">Two</option>
-                  <option value="3">Three</option>
+                  {chainOptions.map((chainOption) => (
+                    <option key={chainOption.value} value={chainOption.value}>
+                      {chainOption.text}
+                    </option>
+                  ))}
                 </select>
               </div>
 
