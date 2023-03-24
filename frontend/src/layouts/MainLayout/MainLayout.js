@@ -1,3 +1,7 @@
 export default function MainLayout({ children }) {
-  return <div>{children}</div>;
+  return (
+    <>
+      <div className="container p-4">{children}</div>
+    </>
+  );
 }

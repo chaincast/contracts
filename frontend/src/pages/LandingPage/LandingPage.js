@@ -79,93 +79,81 @@ export class LandingPage extends React.Component {
     // If everything is loaded, we render the application.
     return (
       <MainLayout>
-        <div className="container p-4">
-          <div className="row">
-            <div className="col-12">
-              <h1>Chaincast Proof of Concept</h1>
-            </div>
+        <div className="row">
+          <div className="col-12">
+            <h1>Chaincast Proof of Concept</h1>
           </div>
-          <div className="row">
-            <div className="col-6">
-              <p>
-                Welcome <b>{this.state.selectedAddress}</b>, this is a proof of
-                concept for Chaincast. Chaincast aims to help DAOs and projects
-                stay in touch with their stakeholders.
-              </p>
-              <p>
-                It accomplishes this by providing a single, normalized, resource
-                for stakeholders to get their updates from. A stakeholder can
-                select to receive updates from all the DAOs they are invested
-                in. They are also able to fine tune the amount and importance of
-                updates they are going to get.
-              </p>
-            </div>
+        </div>
+        <div className="row">
+          <div className="col-6">
+            <p>
+              Welcome <b>{this.state.selectedAddress}</b>, this is a proof of
+              concept for Chaincast. Chaincast aims to help DAOs and projects
+              stay in touch with their stakeholders.
+            </p>
+            <p>
+              It accomplishes this by providing a single, normalized, resource
+              for stakeholders to get their updates from. A stakeholder can
+              select to receive updates from all the DAOs they are invested in.
+              They are also able to fine tune the amount and importance of
+              updates they are going to get.
+            </p>
           </div>
-          <hr />
-          <div className="row">
-            <div className="col-12">
-              <h2>Available Features</h2>
-            </div>
+        </div>
+        <hr />
+        <div className="row">
+          <div className="col-12">
+            <h2>Available Features</h2>
           </div>
-          <div className="row">
-            <div className="col">
-              <a
-                href="/updates"
-                className="btn btn-primary btn-lg"
-                role="button"
-              >
-                Updates
-              </a>
-              <p>Read all the available DAO Updates</p>
-            </div>
-            <div className="col">
-              <a
-                href="/publish"
-                className="btn btn-primary btn-lg"
-                role="button"
-              >
-                Publish
-              </a>
-              <p>
-                Publish a new update (you have to register a Broadcaster first).
-              </p>
-            </div>
-            <div className="col">
-              <a
-                href="/broadcasters/create"
-                className="btn btn-primary btn-lg"
-                role="button"
-              >
-                Register
-              </a>
-              <p>Register a new Broadcaster and publish broadcasts.</p>
-            </div>
+        </div>
+        <div className="row">
+          <div className="col">
+            <a href="/updates" className="btn btn-primary btn-lg" role="button">
+              Updates
+            </a>
+            <p>Read all the available DAO Updates</p>
           </div>
+          <div className="col">
+            <a href="/publish" className="btn btn-primary btn-lg" role="button">
+              Publish
+            </a>
+            <p>
+              Publish a new update (you have to register a Broadcaster first).
+            </p>
+          </div>
+          <div className="col">
+            <a
+              href="/broadcasters/create"
+              className="btn btn-primary btn-lg"
+              role="button"
+            >
+              Register
+            </a>
+            <p>Register a new Broadcaster and publish broadcasts.</p>
+          </div>
+        </div>
 
-          <div className="row">
-            <div className="col-12">
-              {/*
+        <div className="row">
+          <div className="col-12">
+            {/*
               Sending a transaction isn't an immediate action. You have to wait
               for it to be mined.
               If we are waiting for one, we show a message here.
             */}
-              {this.state.txBeingSent && (
-                <WaitingForTransactionMessage txHash={this.state.txBeingSent} />
-              )}
+            {this.state.txBeingSent && (
+              <WaitingForTransactionMessage txHash={this.state.txBeingSent} />
+            )}
 
-              {/*
+            {/*
               Sending a transaction can fail in multiple ways.
               If that happened, we show a message here.
             */}
-              {this.state.transactionError && (
-                <TransactionErrorMessage
-                  message={this._getRpcErrorMessage(
-                    this.state.transactionError,
-                  )}
-                  dismiss={() => this._dismissTransactionError()}
-                />
-              )}
-            </div>
+            {this.state.transactionError && (
+              <TransactionErrorMessage
+                message={this._getRpcErrorMessage(this.state.transactionError)}
+                dismiss={() => this._dismissTransactionError()}
+              />
+            )}
           </div>
         </div>
       </MainLayout>
